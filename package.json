@@ -31,12 +31,12 @@
     },
     "dependencies": {
         "@inquirer/checkbox": "^5.1.5",
-        "@inquirer/core": "^11.1.10",
+        "@inquirer/core": "^12.0.3",
         "@inquirer/input": "^5.0.13",
         "@inquirer/select": "^5.1.5",
         "@types/inquirer": "^9.0.9",
         "chalk": "^6.0.0",
-        "dotenv": "^17.4.2",
+        "dotenv": "^18.0.5",
         "inquirer": "^14.0.0"
     },
     "devDependencies": {
