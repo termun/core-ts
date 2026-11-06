@@ -32,6 +32,11 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    # conventional-changelog-conventionalcommits 10.4 needs conventional-changelog-writer 9, which
+    # @semantic-release/release-notes-generator 14 does not use yet: the release notes fail to render.
+    ignore:
+      - dependency-name: "conventional-changelog-conventionalcommits"
+        versions: [">=10.4.0"]
 
   # GitHub Actions updates
   - package-ecosystem: "github-actions"

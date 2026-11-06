@@ -32,6 +32,18 @@ Keeping the tooling out of the root tree lets `npm audit --audit-level=high`
 in `ci.yml` gate the actual project dependencies without being permanently red
 on an unfixable CI-only chain.
 
+## The changelog preset
+
+`.releaserc` uses the `conventionalcommits` preset. Both semantic-release
+plugins look for `conventional-changelog-conventionalcommits` in their own
+folder first and in the repository root only after, so it is listed here,
+pinned to `~10.3.0`: the root gets it through commitlint at whatever version
+commitlint wants. From 10.4 the preset needs `conventional-changelog-writer`
+9, while `@semantic-release/release-notes-generator` 14 still uses 8, and the
+release fails on `generateNotes` with "Missing helper". `dependabot.yml`
+ignores 10.4 and later; the pin goes when the release notes generator moves
+to writer 9.
+
 ## How it works
 
 `release.yml` installs this directory with `npm ci --prefix
