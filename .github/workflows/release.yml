@@ -54,12 +54,12 @@ jobs:
       # semantic-release lives outside the root dependency tree: it pulls the
       # `npm` CLI, whose bundled deps carry advisories with no fixed release,
       # which would fail the `npm audit` gate in ci.yml. Installed here instead,
-      # pinned by .github/release-tools/package-lock.json.
+      # pinned by tools/release/package-lock.json.
       - name: Install release tooling
-        run: npm ci --prefix .github/release-tools
+        run: npm ci --prefix tools/release
 
       - name: Verify semantic-release is installed
-        run: ls -la .github/release-tools/node_modules/@semantic-release/
+        run: ls -la tools/release/node_modules/@semantic-release/
 
       - name: Build
         run: npm run build
@@ -73,4 +73,4 @@ jobs:
           NPM_CONFIG_PROVENANCE: 'true'
         # Runs from the repo root, so package.json, CHANGELOG.md and git assets
         # resolve exactly as before; only the tooling comes from the prefix.
-        run: npx --prefix .github/release-tools semantic-release
+        run: npx --prefix tools/release semantic-release
