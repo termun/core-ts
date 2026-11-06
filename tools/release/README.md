@@ -23,6 +23,11 @@ There is no way to fix them in place:
 - `npm audit fix --force` downgrades to older `@semantic-release/npm` and `npm`
   majors, which trade these advisories for others.
 
+The folder lives in `tools/release/` and not under `.github/`: Dependabot cannot
+write files under `.github/` other than workflows, so its updates for a
+manifest there always fail with "The request contains invalid or unauthorized
+changes".
+
 Keeping the tooling out of the root tree lets `npm audit --audit-level=high`
 in `ci.yml` gate the actual project dependencies without being permanently red
 on an unfixable CI-only chain.
@@ -30,7 +35,7 @@ on an unfixable CI-only chain.
 ## How it works
 
 `release.yml` installs this directory with `npm ci --prefix
-.github/release-tools`, then runs `npx --prefix .github/release-tools
+tools/release`, then runs `npx --prefix tools/release
 semantic-release` **from the repository root**. semantic-release resolves the
 released package from `process.cwd()`, so the root `package.json`,
 `CHANGELOG.md` and the `@semantic-release/git` assets behave exactly as they did
@@ -38,7 +43,7 @@ when the tooling was a root `devDependency`. Plugins resolve from this
 directory's `node_modules`.
 
 Versions are pinned by `package-lock.json` here and updated by Dependabot — see
-the `/.github/release-tools` entry in `.github/dependabot.yml`.
+the `/tools/release` entry in `.github/dependabot.yml`.
 
 `npm` is also listed here as a direct dependency, in the range
 `@semantic-release/npm` accepts, so that a single copy is installed (`npm ls npm`

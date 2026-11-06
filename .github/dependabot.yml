@@ -16,7 +16,7 @@ updates:
 
   # Release tooling updates, kept out of the main dependency tree
   - package-ecosystem: "npm"
-    directory: "/.github/release-tools"
+    directory: "/tools/release"
     schedule:
       interval: "weekly"
       day: "monday"
