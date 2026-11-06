@@ -13,6 +13,13 @@ updates:
         dependency-type: "development"
       dependencies:
         dependency-type: "production"
+    # semantic-release reads the commit type: production dependencies ship in
+    # @termun/core, so their updates are a fix and release a patch; dev
+    # dependencies do not reach users and release nothing.
+    commit-message:
+      prefix: "fix"
+      prefix-development: "chore"
+      include: "scope"
 
   # Release tooling updates, kept out of the main dependency tree
   - package-ecosystem: "npm"
@@ -21,6 +28,10 @@ updates:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 5
+    # CI-only tooling: never part of the published package, never a release.
+    commit-message:
+      prefix: "chore"
+      include: "scope"
 
   # GitHub Actions updates
   - package-ecosystem: "github-actions"
@@ -29,3 +40,6 @@ updates:
       interval: "weekly"
       day: "monday"
     open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore"
+      include: "scope"
