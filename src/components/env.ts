@@ -1,4 +1,3 @@
-import { config } from "dotenv";
 import { ColorName } from "chalk";
 import { Language } from "@/components/translations";
 
@@ -40,6 +39,21 @@ class Env {
     protected static defaultSelectedUnderline: boolean = false;
     protected static defaultPageSize: number = 10;
 
+    /**
+     * Loads a .env file into process.env with Node's built-in parser; variables already set are kept, and a missing
+     * file is not an error.
+     * @param path Path of the .env file.
+     */
+    protected static loadFile(path: string): void {
+        try {
+            process.loadEnvFile(path);
+        } catch (error) {
+            if ((error as NodeJS.ErrnoException).code !== "ENOENT") {
+                throw error;
+            }
+        }
+    }
+
     /** Helper: extracts a string from env, returning undefined if empty. */
     protected envString(value?: string): string | undefined {
         return value && value.length > 0 ? value : undefined;
@@ -67,7 +81,7 @@ class Env {
 
     /** Reloads settings from the .env file and re-applies all values. @returns this for chaining. */
     public load(): this {
-        config({ path: ".env", quiet: true });
+        Env.loadFile(".env");
 
         const env = process.env;
         this.setDebugLog(env.DEBUG_LOG);
