@@ -45,10 +45,6 @@ release notes come out with the version heading and no entries (as in the
 `generateNotes` with "Missing helper". `dependabot.yml` ignores 10 and later;
 the pin goes when the release notes generator moves to writer 9.
 
-`npx tsx tools/release/check.mts`, run by `ci.yml` on every pull request, runs
-commit analysis and release notes with the `.releaserc` options and fails if
-either breaks.
-
 ## How it works
 
 `release.yml` installs this directory with `npm ci --prefix
