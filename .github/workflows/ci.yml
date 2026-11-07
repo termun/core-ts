@@ -3,9 +3,11 @@ name: CI
 on:
   pull_request:
     types: [opened, reopened, synchronize]
+  # Pull requests are checked by the pull_request event; a push to every branch would run the same checks a second
+  # time for each of them. main is checked again after each merge.
   push:
     branches:
-      - "**"
+      - main
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
