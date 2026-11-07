@@ -1,5 +1,5 @@
 {
-    "version": "1.0.1",
+    "version": "1.0.2",
     "name": "@termun/core",
     "description": "",
     "main": "./dist/main.mjs",
