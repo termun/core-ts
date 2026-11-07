@@ -37,12 +37,17 @@ on an unfixable CI-only chain.
 `.releaserc` uses the `conventionalcommits` preset. Both semantic-release
 plugins look for `conventional-changelog-conventionalcommits` in their own
 folder first and in the repository root only after, so it is listed here,
-pinned to `~10.3.0`: the root gets it through commitlint at whatever version
-commitlint wants. From 10.4 the preset needs `conventional-changelog-writer`
-9, while `@semantic-release/release-notes-generator` 14 still uses 8, and the
-release fails on `generateNotes` with "Missing helper". `dependabot.yml`
-ignores 10.4 and later; the pin goes when the release notes generator moves
-to writer 9.
+pinned to `^9.3.1`: the root gets it through commitlint at whatever version
+commitlint wants. Version 10 needs `conventional-changelog-writer` 9, while
+`@semantic-release/release-notes-generator` 14 still uses 8: up to 10.3 the
+release notes come out with the version heading and no entries (as in the
+1.0.1 entry of `CHANGELOG.md`), from 10.4 the release fails on
+`generateNotes` with "Missing helper". `dependabot.yml` ignores 10 and later;
+the pin goes when the release notes generator moves to writer 9.
+
+`npx tsx tools/release/check.mts`, run by `ci.yml` on every pull request, runs
+commit analysis and release notes with the `.releaserc` options and fails if
+either breaks.
 
 ## How it works
 
